@@ -11,7 +11,7 @@ export default function App({ Component, pageProps }) {
     <PrimeReactProvider>
       <AuthProvider>
         <Head>
-          <meta name="viewport" content="viewport-fit=cover" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
         </Head>
         <Component {...pageProps} />
       </AuthProvider>
