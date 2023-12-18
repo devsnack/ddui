@@ -148,7 +148,20 @@ function SellProducts() {
                 </select>
                 {errors.commune && <FieldError></FieldError>}
               </div>
-              <div className="col-3  col-xs-3  mt-4 pt-2">
+              {/* <div className="col-3  col-xs-3  mt-4 pt-2">
+                <button
+                  className="btn btn-success  "
+                  onClick={(e) => {
+                    e.preventDefault();
+                    getAvailabelStore();
+                  }}
+                >
+                  Afficher Les Boutique
+                </button>
+              </div> */}
+            </div>
+            <div className="row">
+              <div className="col">
                 <button
                   className="btn btn-success  "
                   onClick={(e) => {
