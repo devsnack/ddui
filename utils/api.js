@@ -5,6 +5,7 @@ export const LOGIN_URL = "/api/v1/users/login";
 export const REFRESH_TOKEN = "/api/v1/users/refresh";
 export const newStore = "http://localhost:5000/api/v1/stores";
 export const vsStore = "/api/v1/orders/visite";
+export const newOrder = "/api/v1/orders";
 export default axios.create({
   baseURL: BASE_URL,
 });
@@ -25,4 +26,7 @@ export async function availabelStores(data) {
   const dt = { wilaya: data[0], commune: data[1] };
 
   return axiosPrivate.post("/api/v1/stores/availabelstores", dt);
+}
+export async function addOrder(data) {
+  return axiosPrivate.post(newOrder, data);
 }

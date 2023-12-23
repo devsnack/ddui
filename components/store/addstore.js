@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import FieldError from "../common.js/fielderror";
 import wilaya from "@/utils/wilaya";
@@ -21,6 +21,11 @@ function AddStore() {
   const toast = useRef(null);
   const router = useRouter();
   const [commune, setCommune] = useState(cm.filter((e) => e.wilaya_code == 27));
+
+  useEffect(() => {
+    setValue("dd", window.localStorage.getItem("dd"));
+  }, []);
+
   const onSubmit = async (data) => {
     setLoading(true);
     const { response, error } = await withAsync(addStore, data);

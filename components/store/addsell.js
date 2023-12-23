@@ -4,17 +4,18 @@ import FieldError from "../common.js/fielderror";
 import wilaya from "@/utils/wilaya";
 import cm from "@/utils/communes";
 import withAsync from "@/utils/withasync";
-import { availabelStores } from "@/utils/api";
+import { addOrder, availabelStores } from "@/utils/api";
 import dynamic from "next/dynamic";
 
 import { Toast } from "primereact/toast";
 import { useRouter } from "next/navigation";
 import Cselect from "../customselect";
 import { useCart } from "react-use-cart";
-import SideCart from "../cart/sidebar";
+// import SideCart from "../cart/sidebar";
+const SideCart = dynamic(() => import("../cart/sidebar"), { ssr: false });
 const Cart = dynamic(() => import("../cart"), { ssr: false });
 function SellProducts() {
-  const { setItems, emptyCart, items } = useCart();
+  const { setItems, emptyCart, items, totalItems, cartTotal } = useCart();
   const {
     register,
     handleSubmit,
@@ -22,7 +23,7 @@ function SellProducts() {
     setValue,
     formState: { errors },
   } = useForm();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const toast = useRef(null);
   const router = useRouter();
   const [commune, setCommune] = useState(cm.filter((e) => e.wilaya_code == 27));
@@ -61,12 +62,14 @@ function SellProducts() {
     //  DATA REARRANGE
     [data.storeId, data.storeName] = data.stores.split("-");
     delete data.stores;
-    console.log(items);
+    data.products = items;
+    data.totalPrice = cartTotal;
+    console.log(data);
     //
-    return;
+
     setLoading(true);
-    const { response, error } = await withAsync(visiteStore, data);
-    if (response.status == 200) {
+    const { response, error } = await withAsync(addOrder, data);
+    if (response?.status == 200) {
       setLoading(false);
       toast.current.show({
         severity: "success",
@@ -77,6 +80,7 @@ function SellProducts() {
       router.push("/");
     } else {
       setLoading(false);
+      console.log(error);
     }
   };
   return (
@@ -103,7 +107,7 @@ function SellProducts() {
               {errors.storeType && <FieldError></FieldError>}
             </div> */}
             <div className="row">
-              <div className=" col col-sm-3 mb-3">
+              <div className=" col  mb-3">
                 <label className="form-label">wilaya</label>
                 <select
                   className="form-select"
@@ -127,7 +131,7 @@ function SellProducts() {
                 </select>
                 {errors.wilaya && <FieldError></FieldError>}
               </div>
-              <div class="col col-sm-3 mb-3">
+              <div class="col  mb-3">
                 <label class="form-label">commune</label>
                 <select
                   className="form-select"
@@ -160,10 +164,10 @@ function SellProducts() {
                 </button>
               </div> */}
             </div>
-            <div className="row">
+            <div className="row mb-3">
               <div className="col">
                 <button
-                  className="btn btn-success  "
+                  className="btn btn-success rounded-0 "
                   onClick={(e) => {
                     e.preventDefault();
                     getAvailabelStore();
@@ -174,8 +178,10 @@ function SellProducts() {
               </div>
             </div>
             <div className="row">
-              <div class="col col-sm-3 mb-3">
-                <label class="form-label">Bouitque</label>
+              <div class="col  mb-3">
+                <label class="form-label">
+                  <strong>Boutique</strong>
+                </label>
                 <select
                   className="form-select"
                   {...register("stores", { required: true })}
@@ -193,7 +199,7 @@ function SellProducts() {
               </div>
             </div>
             {/*  */}
-            <label className="form-label">
+            {/* <label className="form-label">
               <strong>Situation</strong>
             </label>
             <div className="mb-4">
@@ -227,41 +233,52 @@ function SellProducts() {
                 />
                 <label class="form-check-label">Pas D'argent</label>
               </div>
-            </div>
+            </div> */}
             {/*  */}
             <div className="row">
+              <label className="form-label">
+                <strong>Produits</strong>
+              </label>
               <div className="">
                 <Cselect onSelectProducts={handleSelectProducts}></Cselect>
               </div>
+            </div>
+            <div className="d-flex gap-2 mt-3">
               <button
+                className=" btn btn-dark rounded-0 "
+                style={{ minWidth: "200px" }}
                 onClick={(e) => {
                   e.preventDefault();
                   handleAddProducts();
                 }}
               >
-                add
+                <i
+                  className="pi pi-cart-plus "
+                  style={{ fontSize: "1rem" }}
+                ></i>
+                <span className="align-text-bottom">Ajouter</span>
               </button>
+              <SideCart onConfirm={() => setLoading(false)}></SideCart>
             </div>
 
             <button
-              className="btn btn-primary"
+              className="btn btn-primary mt-5"
               type="submit"
               disabled={loading}
             >
-              {loading && (
+              {/* {loading && (
                 <span
                   class="spinner-border spinner-border-sm"
                   role="status"
                   aria-hidden="true"
                 ></span>
-              )}
+              )} */}
               Envoyer
             </button>
           </form>
         </div>
       </div>
-      <Cart suppressHydrationWarning={true}></Cart>
-      <SideCart></SideCart>
+      {/* <Cart suppressHydrationWarning={true}></Cart> */}
     </div>
   );
 }

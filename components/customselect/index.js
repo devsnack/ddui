@@ -12,6 +12,7 @@ export default function Cselect({ onSelectProducts }) {
       .then((e) => {
         let newData = e.data.data.map((e, index) => ({
           id: ++index,
+          price: e.PriceTtc,
           ...e,
         }));
 
