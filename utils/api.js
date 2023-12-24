@@ -1,6 +1,6 @@
 import axios from "axios";
 // const BASE_URL = "http://localhost:5000";
-const BASE_URL = "https://dd-api-three.vercel.app/";
+const BASE_URL = "https://ddback.vercel.app/";
 
 export const LOGIN_URL = "/api/v1/users/login";
 export const REFRESH_TOKEN = "/api/v1/users/refresh";
