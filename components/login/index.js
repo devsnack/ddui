@@ -47,7 +47,7 @@ const Login = () => {
       const accessToken = response?.data?.token;
       const roles = response?.data?.data.user?.userType;
 
-      login(accessToken);
+      login(accessToken, roles);
       currentdd(response?.data?.data.user?._id);
       setUser("");
       setPwd("");
@@ -66,6 +66,9 @@ const Login = () => {
       errRef.current.focus();
     }
   };
+  useEffect(() => {
+    if (localStorage.getItem("token")) router.push("/");
+  }, []);
 
   return (
     <section>
@@ -76,9 +79,9 @@ const Login = () => {
       >
         {errMsg}
       </p>
-      <h1>Sign In</h1>
+      <h1>CARTANA Com</h1>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="username">Username:</label>
+        <label htmlFor="username">Nom d'utilisateur</label>
         <input
           type="text"
           id="username"
@@ -88,8 +91,8 @@ const Login = () => {
           value={user}
           required
         />
-
-        <label htmlFor="password">Password:</label>
+        <br></br>
+        <label htmlFor="password">Mot de passe</label>
         <input
           type="password"
           id="password"
@@ -97,7 +100,8 @@ const Login = () => {
           value={pwd}
           required
         />
-        <button>Sign In</button>
+        <br></br>
+        <button className="btn btn-dark mt-3">Se Connecter</button>
       </form>
     </section>
   );

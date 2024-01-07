@@ -1,0 +1,42 @@
+.cardui {
+  height: 6rem;
+  border-radius: 12px;
+  padding: 14px 12px;
+  position: relative;
+  color: white;
+  text-align: center;
+  background: hsla(182, 67%, 56%, 1);
+  background: linear-gradient(
+    45deg,
+    rgb(104 112 113) 0%,
+    rgb(0 0 0) 71%,
+    rgb(0 0 0) 100%
+  );
+
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#42D5DA", endColorstr="#B961FC", GradientType=1 );
+}
+
+.cardui > span {
+  font-size: 2rem;
+}
+
+.badge {
+  height: 32px;
+  width: 70px;
+  border-radius: 6px;
+  padding: 0.5em;
+  margin-top: 0.5em;
+  margin-right: 12px;
+}
+
+.boxgreen {
+  background-color: #0bd18a;
+  box-shadow: 0px 6px 20px rgba(11, 209, 138, 0.3);
+}
+.boxred {
+  background-color: #fc6161;
+  box-shadow: 0px 6px 20px rgba(252, 97, 97, 0.3);
+}
+.number {
+  font-size: 30px;
+}

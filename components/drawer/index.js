@@ -17,6 +17,7 @@ export default function Drawer() {
       link: "/store/visite",
     },
     { label: "Commande", icon: "pi pi-fw pi-box", link: "/store/sell" },
+    { label: "Dashboard", icon: "pi pi-chart-bar", link: "/store/dash" },
   ];
   return (
     <div className="card flex justify-content-center mb-5">

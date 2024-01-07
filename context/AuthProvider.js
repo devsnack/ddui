@@ -22,6 +22,7 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [dd, setD] = useState(null);
+  const [userType, setUserType] = useState(null);
 
   useEffect(() => {
     // Check if a token is stored in local storage
@@ -31,9 +32,11 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  const login = (newToken) => {
+  const login = (newToken, userType) => {
     setToken(newToken);
+    setUserType(userType);
     localStorage.setItem("token", newToken);
+    localStorage.setItem("usertype", userType);
   };
   const currentdd = (dd) => {
     setD(dd);

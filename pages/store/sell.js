@@ -2,6 +2,7 @@ import SellProducts from "@/components/store/addsell";
 import useAuth from "@/hooks/useAuth";
 import { CartProvider } from "react-use-cart";
 import React from "react";
+import withAuth from "@/components/keepon/withauth";
 
 function AddStorePage() {
   return (
@@ -11,4 +12,4 @@ function AddStorePage() {
   );
 }
 
-export default AddStorePage;
+export default withAuth(AddStorePage);

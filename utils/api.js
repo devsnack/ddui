@@ -7,6 +7,10 @@ export const REFRESH_TOKEN = "/api/v1/users/refresh";
 export const newStore = "/api/v1/stores";
 export const vsStore = "/api/v1/orders/visite";
 export const newOrder = "/api/v1/orders";
+export const totalGains = "/api/v1/analysis/totalgains";
+export const totalRevenue = "/api/v1/analysis/totalamountsorders";
+export const objectif = "/api/v1/analysis/objectif";
+export const stockByUser = "/api/v1/stock";
 export default axios.create({
   baseURL: BASE_URL,
 });
@@ -30,4 +34,16 @@ export async function availabelStores(data) {
 }
 export async function addOrder(data) {
   return axiosPrivate.post(newOrder, data);
+}
+export async function getTotalGains() {
+  return axiosPrivate.get(totalGains);
+}
+export async function getTotalRevenue() {
+  return axiosPrivate.get(totalRevenue);
+}
+export async function getObjectif(type) {
+  return axiosPrivate.get(`${objectif}/${type}`);
+}
+export async function getStock(dd) {
+  return axiosPrivate.get(`${stockByUser}/${dd}`);
 }

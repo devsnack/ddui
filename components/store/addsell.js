@@ -37,6 +37,18 @@ function SellProducts() {
     //   cart.items = [];
     //   window.localStorage.setItem("react-use-cart", JSON.stringify(cart));
     // };
+    function success(pos) {
+      const crd = pos.coords;
+
+      setValue("location.coordinates", [crd.latitude, crd.longitude]);
+    }
+
+    function error(err) {
+      alert("Utilisateur refusé");
+      console.warn(`ERROR(${err.code}): ${err.message}`);
+    }
+
+    navigator.geolocation.getCurrentPosition(success, error);
     return () => {
       emptyCart();
     };
@@ -69,6 +81,7 @@ function SellProducts() {
 
     setLoading(true);
     const { response, error } = await withAsync(addOrder, data);
+
     if (response?.status == 200) {
       setLoading(false);
       toast.current.show({
@@ -79,8 +92,14 @@ function SellProducts() {
       });
       router.push("/");
     } else {
+      toast.current.show({
+        severity: "error",
+        summary: "Erreur",
+        detail: "Stock Insuffisant",
+        life: 3000,
+      });
       setLoading(false);
-      console.log(error);
+      // console.log(error);
     }
   };
   return (

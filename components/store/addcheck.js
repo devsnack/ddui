@@ -26,6 +26,17 @@ function VisiteStore() {
   // const [dd, setD] = useState(null);
   useEffect(() => {
     setValue("dd", window.localStorage.getItem("dd"));
+    function success(pos) {
+      const crd = pos.coords;
+      setValue("location.coordinates", [crd.latitude, crd.longitude]);
+    }
+
+    function error(err) {
+      alert("Utilisateur refusé");
+      console.warn(`ERROR(${err.code}): ${err.message}`);
+    }
+
+    navigator.geolocation.getCurrentPosition(success, error);
   }, []);
 
   const getAvailabelStore = async () => {
